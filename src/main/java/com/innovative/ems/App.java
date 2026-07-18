@@ -1,11 +1,11 @@
 package com.innovative.ems;
 
+import com.innovative.ems.config.AppConfig;
 import com.innovative.ems.entity.Employee;
-import com.innovative.ems.repository.EmployeeRepository;
-import com.innovative.ems.repository.EmployeeRepositoryImpl;
 import com.innovative.ems.service.EmployeeService;
-import com.innovative.ems.service.EmployeeServiceImpl;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 import java.util.List;
@@ -16,9 +16,10 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
 
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
         Scanner sc = new Scanner(System.in);
-        EmployeeRepository repository = new EmployeeRepositoryImpl();
-        EmployeeService service = new EmployeeServiceImpl();
+        EmployeeService service = context.getBean(EmployeeService.class);
 
         System.out.println("Welcome to Employee Management System");
 
@@ -89,7 +90,7 @@ public class App {
                     employee.setDepartment(sc.nextLine());
                     System.out.println("Enter the Salary: ");
                     employee.setSalary(sc.nextDouble());
-                    repository.update(employee);
+                    service.update(employee);
                     System.out.println("Employee Record updated successfully..");
                     break;
 

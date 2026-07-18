@@ -3,15 +3,20 @@ package com.innovative.ems.service;
 import com.innovative.ems.entity.Employee;
 import com.innovative.ems.repository.EmployeeRepository;
 import com.innovative.ems.repository.EmployeeRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final EmployeeRepository repository;
 
-    public EmployeeServiceImpl() {
-        this.repository = new EmployeeRepositoryImpl();
+    private final EmployeeRepository repository;
+    @Autowired
+    public EmployeeServiceImpl(EmployeeRepository repository) {
+        this.repository = repository;
     }
+
 
     private static final double MAX_SALARY = 2_00_000;
 
